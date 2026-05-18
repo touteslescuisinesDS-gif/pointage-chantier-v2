@@ -2311,26 +2311,41 @@ function masseApply(field){
   if(!masseSelected.size){ snack('Sélectionnez au moins un matériel'); return; }
   var filtered = getMasseFiltered();
   var targets = filtered.filter(function(r){ return masseSelected.has(r._row); });
+
+  // Bascule : si TOUS les sélectionnés ont déjà l'état actif → désactive, sinon active
+  var allActive;
+  if(field==='vu'){
+    allActive = targets.every(function(r){ return computeVu(r); });
+  } else {
+    allActive = targets.every(function(r){ return r[field]; });
+  }
+  var activate = !allActive;
+
   targets.forEach(function(row){
     var id = getMasseRowId(row);
     if(field==='vu'){
-      if(!isAutoVu(row)){ row.vu=true; }
+      if(isAutoVu(row) && !activate){ return; } // Vu auto non révocable
+      row.vu = activate;
     } else {
-      // Option A : forcer l'état à true
-      if(field==='mes'){ row.livre=true; row.installe=true; row.mes=true; }
-      else if(field==='installe'){ row.livre=true; row.installe=true; }
-      else { row[field]=true; }
-      if(isAutoVu(row)) row.vu=true;
+      if(activate){
+        if(field==='mes'){ row.livre=true; row.installe=true; row.mes=true; }
+        else if(field==='installe'){ row.livre=true; row.installe=true; }
+        else { row[field]=true; }
+        if(isAutoVu(row)) row.vu=true;
+      } else {
+        row[field]=false;
+      }
     }
     syncRow(row);
     refreshMasseRow(row, id);
-    // Flash visuel
     var tr = document.getElementById(id);
     if(tr){ tr.classList.add('masse-flash'); setTimeout(function(){ tr.classList.remove('masse-flash'); },700); }
   });
   saveLocal(); renderLocalList(); updateVuBar();
   var lbl={livre:'Livré',installe:'Installé',mes:'En service',vu:'Vu ce jour'};
-  snack('✅ '+lbl[field]+' appliqué à '+targets.length+' matériel'+(targets.length>1?'s':''), '#1e8a4a');
+  var verb = activate ? '✅ ' : '↩ ';
+  var suffix = activate ? ' activé' : ' désactivé';
+  snack(verb+lbl[field]+suffix+' ('+targets.length+' matériel'+(targets.length>1?'s':'')+')');
 }
 
 function masseOpenRem(){
