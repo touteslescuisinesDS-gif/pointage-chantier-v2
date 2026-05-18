@@ -296,6 +296,76 @@ input[type=number]{-moz-appearance:textfield}
 #cameraPopup{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:1000;align-items:center;justify-content:center}
 #cameraPopup.open{display:flex}
 
+/* ═══ POINTAGE EN MASSE ═══════════════════════════════════════════════════ */
+#tab-masse{display:none;height:100%;flex-direction:column;margin:-20px;overflow:hidden}
+#masseToolbar{background:var(--surf);border-bottom:2px solid var(--border);padding:10px 16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;flex-shrink:0;box-shadow:var(--shadow)}
+#masseFilterWrap{flex:1;min-width:180px;position:relative}
+#masseFilterWrap::before{content:'🔍';position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:14px;pointer-events:none;z-index:1}
+#masseFilter{width:100%;padding:8px 10px 8px 34px;border:1.5px solid var(--border2);border-radius:8px;background:var(--surf);color:var(--text);font-size:13px;outline:none;font-family:inherit}
+#masseFilter:focus{border-color:var(--blue);box-shadow:0 0 0 2px rgba(26,122,181,.12)}
+#masseLotFilter{padding:8px 28px 8px 10px;border:1.5px solid var(--border2);border-radius:8px;background:var(--surf);color:var(--text);font-size:12px;outline:none;font-family:inherit;min-width:130px;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%235a7089' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center}
+#masseLotFilter:focus{border-color:var(--blue)}
+#masseCount{font-size:12px;color:var(--muted);white-space:nowrap;flex-shrink:0}
+#masseTableWrap{flex:1;overflow-y:auto;overflow-x:auto}
+#masseTable{width:100%;border-collapse:collapse;font-size:13px}
+#masseTable thead{position:sticky;top:0;z-index:10}
+#masseTable thead tr{background:var(--surf);border-bottom:2px solid var(--border)}
+#masseTable th{padding:9px 10px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);white-space:nowrap;border-right:1px solid var(--border);background:var(--surf)}
+#masseTable th:last-child{border-right:none}
+#masseTable th.th-sel{width:36px;padding:9px 8px;text-align:center}
+#masseTable th.th-mat{min-width:200px}
+#masseTable th.th-loc{min-width:120px}
+#masseTable th.th-rep{width:80px}
+#masseTable th.th-lot{width:90px}
+#masseTable th.th-ck{width:84px;text-align:center}
+#masseTable th.th-rem{min-width:160px}
+#masseTable tbody tr{border-bottom:1px solid var(--border);transition:background .1s}
+#masseTable tbody tr:hover{background:var(--card2)}
+#masseTable tbody tr.masse-selected{background:#edf4fb}
+#masseTable tbody tr.masse-flash{animation:masseFlash .6s ease}
+@keyframes masseFlash{0%{background:#d4f0e2}100%{background:transparent}}
+#masseTable td{padding:8px 10px;vertical-align:middle;border-right:1px solid var(--border)}
+#masseTable td:last-child{border-right:none}
+.td-sel{text-align:center;width:36px}
+.masse-cb{width:16px;height:16px;accent-color:var(--blue);cursor:pointer}
+.cb-all{width:16px;height:16px;accent-color:var(--blue);cursor:pointer}
+.td-mat{font-weight:600;color:var(--text);line-height:1.3}
+.td-loc{font-size:11px;color:var(--muted)}
+.td-rep{font-family:'Courier New',monospace;font-size:11px;font-weight:700;color:var(--blue)}
+.td-lot{font-size:11px;color:var(--muted)}
+.masse-ck{display:inline-flex;align-items:center;justify-content:center;width:76px;padding:4px 6px;border-radius:6px;border:1.5px solid var(--border);background:var(--card2);cursor:pointer;user-select:none;transition:all .12s;font-size:11px;font-weight:500;color:#8fa3b8;white-space:nowrap;gap:3px}
+.masse-ck:hover{border-color:var(--blue);color:var(--blue)}
+.masse-ck.on-l{border-color:var(--ok);background:#edf7f1;color:var(--ok);font-weight:700}
+.masse-ck.on-i{border-color:var(--accent);background:#fef5e8;color:var(--accent);font-weight:700}
+.masse-ck.on-m{border-color:var(--ok);background:#edf7f1;color:var(--ok);font-weight:700}
+.masse-vu{display:inline-flex;align-items:center;justify-content:center;width:44px;padding:4px 6px;border-radius:6px;border:1.5px solid var(--border);background:var(--card2);cursor:pointer;user-select:none;transition:all .12s;font-size:11px;font-weight:500;color:#8fa3b8}
+.masse-vu:hover{border-color:var(--purple);color:var(--purple)}
+.masse-vu.on-v{border-color:var(--purple);background:#f5eefa;color:var(--purple);font-weight:700}
+.td-rem{font-size:11px;color:var(--muted);cursor:pointer;max-width:180px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:color .12s}
+.td-rem:hover{color:var(--blue)}
+.td-rem.has-rem{color:var(--text);font-weight:500}
+.masse-empty{text-align:center;padding:60px 20px;color:var(--muted)}
+/* Barre d'action flottante */
+#masseActionBar{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(120px);background:var(--text);color:#fff;border-radius:16px;padding:10px 18px;display:flex;align-items:center;gap:10px;z-index:500;box-shadow:0 4px 24px rgba(0,0,0,.28);transition:transform .25s ease;flex-wrap:wrap;justify-content:center;max-width:90vw}
+#masseActionBar.show{transform:translateX(-50%) translateY(0)}
+#masseSelCount{font-size:12px;font-weight:700;color:#aac8e8;white-space:nowrap;padding-right:6px;border-right:1px solid rgba(255,255,255,.2)}
+.mab-btn{padding:7px 13px;border:1.5px solid rgba(255,255,255,.25);border-radius:8px;background:rgba(255,255,255,.1);color:#fff;font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;white-space:nowrap}
+.mab-btn:hover{background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.5)}
+.mab-btn.mab-ok{background:rgba(30,138,74,.7);border-color:#1e8a4a}
+.mab-btn.mab-ok:hover{background:#1e8a4a}
+.mab-btn.mab-rem{background:rgba(212,130,10,.6);border-color:var(--accent)}
+.mab-btn.mab-rem:hover{background:var(--accent)}
+/* Popup remarque en masse */
+#masseRemPopup{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:600;display:none;align-items:center;justify-content:center}
+#masseRemPopup.open{display:flex}
+#masseRemBox{background:var(--surf);border-radius:var(--r2);padding:22px;width:380px;max-width:92vw;box-shadow:var(--shadow2)}
+#masseRemBox h3{font-size:14px;font-weight:700;margin-bottom:6px}
+#masseRemBox p{font-size:12px;color:var(--warn);margin-bottom:12px}
+#masseRemText{width:100%;min-height:80px;border:1.5px solid var(--border2);border-radius:var(--r);padding:9px 11px;font-size:13px;font-family:inherit;color:var(--text);background:var(--surf);resize:vertical;outline:none}
+#masseRemText:focus{border-color:var(--blue)}
+.masse-rem-btns{display:flex;gap:8px;margin-top:12px;justify-content:flex-end}
+.mrem-ok{padding:8px 18px;border:none;border-radius:var(--r);background:var(--ok);color:#fff;font-size:13px;font-weight:700;cursor:pointer}
+.mrem-cancel{padding:8px 14px;border:1px solid var(--border);border-radius:var(--r);background:var(--surf);color:var(--muted);font-size:13px;cursor:pointer}
 </style>
 </head>
 <body>
@@ -312,6 +382,7 @@ input[type=number]{-moz-appearance:textfield}
   <button class="tab" data-tab="notes" onclick="showTab('notes')">📝 Bloc-notes</button>
   <button class="tab" data-tab="photos" onclick="showTab('photos')">📷 Photos</button>
   <button class="tab" data-tab="avancement" onclick="showTab('avancement')">📊 Avancement</button>
+  <button class="tab" data-tab="masse" onclick="showTab('masse')">⚡ Masse</button>
 </div>
 <div id="appBody">
   <div id="leftPanel" class="hidden">
@@ -476,10 +547,66 @@ input[type=number]{-moz-appearance:textfield}
       </div>
     </div>
 
+    <!-- ═══ ONGLET POINTAGE EN MASSE ═════════════════════════════════════════ -->
+    <div id="tab-masse" style="display:none">
+      <div id="masseToolbar">
+        <div id="masseFilterWrap">
+          <input type="text" id="masseFilter" placeholder="Filtrer par désignation…" oninput="renderMasse()" autocomplete="off">
+        </div>
+        <select id="masseLotFilter" onchange="renderMasse()">
+          <option value="">Tous les lots</option>
+        </select>
+        <span id="masseCount" style="color:var(--muted);font-size:12px"></span>
+      </div>
+      <div id="masseTableWrap">
+        <table id="masseTable">
+          <thead>
+            <tr>
+              <th class="th-sel"><input type="checkbox" class="cb-all" id="masseCheckAll" onchange="masseToogleAll(this.checked)" title="Tout sélectionner"></th>
+              <th class="th-mat">Matériel</th>
+              <th class="th-loc">Local</th>
+              <th class="th-rep">Repère</th>
+              <th class="th-lot">Lot</th>
+              <th class="th-ck">Livré</th>
+              <th class="th-ck">Installé</th>
+              <th class="th-ck">En service</th>
+              <th class="th-ck">Vu</th>
+              <th class="th-rem">Remarque</th>
+            </tr>
+          </thead>
+          <tbody id="masseBody">
+            <tr><td colspan="10" class="masse-empty"><div style="font-size:36px;margin-bottom:10px">⚡</div><div>Chargez un fichier Excel pour afficher les matériels</div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- /onglet masse -->
+
   </div>
 </div>
 
-<div id="remPopup">
+<!-- Barre d'action flottante masse -->
+<div id="masseActionBar">
+  <span id="masseSelCount">0 sélectionné(s)</span>
+  <button class="mab-btn mab-ok" onclick="masseApply('livre')">📦 Livré</button>
+  <button class="mab-btn mab-ok" onclick="masseApply('installe')">🔧 Installé</button>
+  <button class="mab-btn mab-ok" onclick="masseApply('mes')">⚡ En service</button>
+  <button class="mab-btn" onclick="masseApply('vu')">👁 Vu ce jour</button>
+  <button class="mab-btn mab-rem" onclick="masseOpenRem()">💬 Remarque…</button>
+</div>
+
+<!-- Popup remarque en masse -->
+<div id="masseRemPopup">
+  <div id="masseRemBox">
+    <h3>Remarque groupée</h3>
+    <p>⚠️ Cette remarque écrasera les remarques existantes des matériels sélectionnés.</p>
+    <textarea id="masseRemText" placeholder="Saisir la remarque à appliquer…"></textarea>
+    <div class="masse-rem-btns">
+      <button class="mrem-cancel" onclick="masseCloseRem()">Annuler</button>
+      <button class="mrem-ok" onclick="masseValiderRem()">✓ Appliquer</button>
+    </div>
+  </div>
+</div>
   <div class="rem-box">
     <div class="rem-hdr"><div class="rem-title" id="remTitle">Remarques</div><span class="rem-rep" id="remRepere"></span><button onclick="closeRemPopup()" style="background:none;border:none;font-size:20px;cursor:pointer;color:var(--muted);padding:0 4px">✕</button></div>
     <div class="rem-body">
@@ -604,8 +731,8 @@ function fmtDriveDate(iso){ if(!iso) return ''; var d=new Date(iso); return d.to
 
 // ─── TABS ──────────────────────────────────────────────────────────────────
 function showTab(t){
-  ['fichiers','pointage','plans','notes','photos','avancement'].forEach(function(n){
-    var el=document.getElementById('tab-'+n); if(el) el.style.display=n===t?'block':'none';
+  ['fichiers','pointage','plans','notes','photos','avancement','masse'].forEach(function(n){
+    var el=document.getElementById('tab-'+n); if(el) el.style.display=n===t?(n==='masse'?'flex':'block'):'none';
   });
   document.querySelectorAll('.tab').forEach(function(b){
     var bt=b.dataset.tab||'';
@@ -617,13 +744,20 @@ function showTab(t){
   if(activePdf&&t!=='plans') saveSnap();
   document.getElementById('leftPanel').classList.toggle('hidden',t!=='pointage');
   if(t==='avancement') renderAvancement();
+  if(t==='masse'){
+    // Panneau masse : pleine largeur, pas de padding
+    document.getElementById('rightPanel').style.overflow='hidden';
+    document.getElementById('rightPanel').style.padding='0';
+    populateMasseLotFilter();
+    renderMasse();
+  } else {
+    document.getElementById('rightPanel').style.overflow='';
+    document.getElementById('rightPanel').style.padding='';
+  }
   if(t==='plans'){
     fixPdfH();
     document.getElementById('rightPanel').style.overflow='hidden';
     document.getElementById('rightPanel').style.padding='0';
-  } else {
-    document.getElementById('rightPanel').style.overflow='';
-    document.getElementById('rightPanel').style.padding='';
   }
   if(t==='notes') initNoteCanvas();
   if(t==='photos') renderPhotoGallery();
@@ -672,6 +806,7 @@ function parseData(){
     });
   }
   lots=Array.from(ls).sort(); populateFilters(); renderLocalList();
+  populateMasseLotFilter();
 }
 
 function showXLSOk(){
@@ -1272,6 +1407,14 @@ function refreshRemZone(id,row){
   cont.innerHTML=remHtml+(remLines.length>0?'<span class="mrem-count">'+remLines.length+'</span>':'');
   if(isAutoVu(row)) row.vu=true;
   var box=document.getElementById('vubox_'+id); if(box){ box.classList.toggle('on',computeVu(row)); box.textContent=computeVu(row)?'\u2713':''; }
+  // Sync ligne masse si l'onglet masse est actif
+  var masseId = id.replace(/^mc_/, 'mr_');
+  var tdRem = document.getElementById('mrem_'+masseId);
+  if(tdRem){
+    tdRem.className='td-rem'+(row.remarque?' has-rem':'');
+    tdRem.textContent=row.remarque?row.remarque.split('\n').filter(Boolean).join(' · '):'Ajouter…';
+    tdRem.title=row.remarque||'Cliquer pour ajouter une remarque';
+  }
 }
 
 function addRemarque(txt){
@@ -1943,6 +2086,292 @@ async function loadNotePages(){
     all.forEach(function(n){ if(notePages[n.page]) notePages[n.page].snap=n.snap; });
   }
   if(notePages.length===0) notePages=[{snap:null}];
+}
+
+// ═══ POINTAGE EN MASSE ════════════════════════════════════════════════════════
+
+// État de la sélection en masse
+var masseSelected = new Set(); // Set de _row ids
+
+function getMasseFiltered(){
+  var txt = (document.getElementById('masseFilter')||{}).value || '';
+  var lot = (document.getElementById('masseLotFilter')||{}).value || '';
+  txt = txt.trim().toLowerCase();
+  return wsData
+    .filter(function(r){
+      var matchTxt = !txt || r.materiel.toLowerCase().indexOf(txt) !== -1;
+      var matchLot = !lot || r.lot === lot;
+      return matchTxt && matchLot;
+    })
+    .slice()
+    .sort(function(a,b){ return a.materiel.localeCompare(b.materiel,'fr',{sensitivity:'base'}); });
+}
+
+function getMasseRowId(row){ return 'mr_'+(row._row<0?'n'+Math.abs(row._row):row._row); }
+
+function renderMasse(){
+  if(!document.getElementById('tab-masse')) return;
+  populateMasseLotFilter();
+  var filtered = getMasseFiltered();
+  var tbody = document.getElementById('masseBody');
+  if(!tbody) return;
+  // Nettoyer sélection des lignes qui ne sont plus affichées
+  var filteredIds = new Set(filtered.map(function(r){ return r._row; }));
+  masseSelected.forEach(function(id){ if(!filteredIds.has(id)) masseSelected.delete(id); });
+  tbody.innerHTML = '';
+  if(!wsData.length){
+    tbody.innerHTML = '<tr><td colspan="10" class="masse-empty"><div style="font-size:36px;margin-bottom:10px">⚡</div><div>Chargez un fichier Excel pour afficher les matériels</div></td></tr>';
+    updateMasseActionBar(); return;
+  }
+  if(!filtered.length){
+    tbody.innerHTML = '<tr><td colspan="10" class="masse-empty"><div style="font-size:20px;margin-bottom:8px">🔍</div><div>Aucun matériel ne correspond au filtre</div></td></tr>';
+    updateMasseActionBar(); return;
+  }
+  filtered.forEach(function(row){
+    tbody.appendChild(buildMasseRow(row));
+  });
+  // Mettre à jour le compteur
+  var cnt = document.getElementById('masseCount');
+  if(cnt) cnt.textContent = filtered.length + ' matériel' + (filtered.length>1?'s':'');
+  // Mettre à jour la checkbox "tout sélectionner"
+  syncMasseCheckAll();
+  updateMasseActionBar();
+}
+
+function buildMasseRow(row){
+  var id = getMasseRowId(row);
+  var sel = masseSelected.has(row._row);
+  var vu = computeVu(row);
+  var tr = document.createElement('tr');
+  tr.id = id;
+  tr._rowRef = row;
+  if(sel) tr.classList.add('masse-selected');
+
+  // Checkbox sélection
+  var tdSel = document.createElement('td'); tdSel.className='td-sel';
+  var cb = document.createElement('input'); cb.type='checkbox'; cb.className='masse-cb';
+  cb.checked = sel;
+  cb.addEventListener('change', function(){ masseCbChange(row._row, cb.checked, tr); });
+  tdSel.appendChild(cb); tr.appendChild(tdSel);
+
+  // Matériel
+  var tdMat = document.createElement('td'); tdMat.className='td-mat';
+  tdMat.textContent = row.materiel || '(sans désignation)';
+  if(row.recup){ var rc=document.createElement('span'); rc.style.cssText='margin-left:6px;font-size:10px;color:var(--warn);font-weight:700'; rc.textContent='⚠️ Récup'; tdMat.appendChild(rc); }
+  tr.appendChild(tdMat);
+
+  // Local
+  var tdLoc = document.createElement('td'); tdLoc.className='td-loc'; tdLoc.textContent=row.local; tr.appendChild(tdLoc);
+  // Repère
+  var tdRep = document.createElement('td'); tdRep.className='td-rep'; tdRep.textContent=row.repere||'—'; tr.appendChild(tdRep);
+  // Lot
+  var tdLot = document.createElement('td'); tdLot.className='td-lot'; tdLot.textContent=row.lot||'—'; tr.appendChild(tdLot);
+
+  // Livré
+  var tdL = document.createElement('td'); tdL.style.textAlign='center';
+  var ckL = document.createElement('div'); ckL.id='mck_l_'+id; ckL.className='masse-ck'+(row.livre?' on-l':'');
+  ckL.innerHTML=(row.livre?'✅':'📦')+'<span style="font-size:10px">'+(row.livre?'Oui':'Non')+'</span>';
+  ckL.addEventListener('click',function(e){ e.stopPropagation(); masseSingleCk(row,id,'livre'); });
+  tdL.appendChild(ckL); tr.appendChild(tdL);
+
+  // Installé
+  var tdI = document.createElement('td'); tdI.style.textAlign='center';
+  var ckI = document.createElement('div'); ckI.id='mck_i_'+id; ckI.className='masse-ck'+(row.installe?' on-i':'');
+  ckI.innerHTML=(row.installe?'✅':'🔧')+'<span style="font-size:10px">'+(row.installe?'Oui':'Non')+'</span>';
+  ckI.addEventListener('click',function(e){ e.stopPropagation(); masseSingleCk(row,id,'installe'); });
+  tdI.appendChild(ckI); tr.appendChild(tdI);
+
+  // En service
+  var tdM = document.createElement('td'); tdM.style.textAlign='center';
+  var ckM = document.createElement('div'); ckM.id='mck_m_'+id; ckM.className='masse-ck'+(row.mes?' on-m':'');
+  ckM.innerHTML=(row.mes?'✅':'⚡')+'<span style="font-size:10px">'+(row.mes?'Oui':'Non')+'</span>';
+  ckM.addEventListener('click',function(e){ e.stopPropagation(); masseSingleCk(row,id,'mes'); });
+  tdM.appendChild(ckM); tr.appendChild(tdM);
+
+  // Vu ce jour
+  var tdV = document.createElement('td'); tdV.style.textAlign='center';
+  var ckV = document.createElement('div'); ckV.id='mck_v_'+id; ckV.className='masse-vu'+(vu?' on-v':'');
+  ckV.textContent = vu ? '✓' : '—';
+  ckV.addEventListener('click',function(e){ e.stopPropagation(); masseSingleVu(row,id); });
+  tdV.appendChild(ckV); tr.appendChild(tdV);
+
+  // Remarque
+  var tdRem = document.createElement('td');
+  tdRem.id='mrem_'+id;
+  tdRem.className='td-rem'+(row.remarque?' has-rem':'');
+  tdRem.title = row.remarque||'Cliquer pour ajouter une remarque';
+  tdRem.textContent = row.remarque
+    ? row.remarque.split('\n').filter(Boolean).join(' · ')
+    : 'Ajouter…';
+  tdRem.addEventListener('click',function(e){ e.stopPropagation(); openRemPopup(id); });
+  tr.appendChild(tdRem);
+
+  // Stocker la ref dans le DOM (compatibilité avec openRemPopup existant)
+  tr._rowRef = row;
+  // Pour que getRow() fonctionne avec l'id de la ligne masse
+  document.getElementById && (function(){
+    // On expose l'élément via un registre pour getRow()
+    if(!W._masseRows) W._masseRows = {};
+    W._masseRows[id] = row;
+  })();
+
+  return tr;
+}
+
+// Surcharge de getRow pour inclure les lignes masse (registre W._masseRows)
+var _origGetRow = getRow;
+function getRow(id){
+  var el = document.getElementById(id);
+  if(el && el._rowRef) return el._rowRef;
+  if(W._masseRows && W._masseRows[id]) return W._masseRows[id];
+  return null;
+}
+
+function masseCbChange(rowId, checked, tr){
+  if(checked){ masseSelected.add(rowId); tr.classList.add('masse-selected'); }
+  else { masseSelected.delete(rowId); tr.classList.remove('masse-selected'); }
+  syncMasseCheckAll();
+  updateMasseActionBar();
+}
+
+function masseToogleAll(checked){
+  var filtered = getMasseFiltered();
+  filtered.forEach(function(row){
+    if(checked) masseSelected.add(row._row);
+    else masseSelected.delete(row._row);
+    var id = getMasseRowId(row);
+    var tr = document.getElementById(id); if(tr) tr.classList.toggle('masse-selected', checked);
+    var cb = tr && tr.querySelector('.masse-cb'); if(cb) cb.checked = checked;
+  });
+  updateMasseActionBar();
+}
+
+function syncMasseCheckAll(){
+  var filtered = getMasseFiltered();
+  var allCk = document.getElementById('masseCheckAll'); if(!allCk) return;
+  if(!filtered.length){ allCk.checked=false; allCk.indeterminate=false; return; }
+  var selCount = filtered.filter(function(r){ return masseSelected.has(r._row); }).length;
+  if(selCount === 0){ allCk.checked=false; allCk.indeterminate=false; }
+  else if(selCount === filtered.length){ allCk.checked=true; allCk.indeterminate=false; }
+  else { allCk.checked=false; allCk.indeterminate=true; }
+}
+
+function updateMasseActionBar(){
+  var bar = document.getElementById('masseActionBar');
+  var cnt = document.getElementById('masseSelCount');
+  var n = masseSelected.size;
+  if(cnt) cnt.textContent = n + ' sélectionné' + (n>1?'s':'');
+  if(bar) bar.classList.toggle('show', n>0);
+}
+
+// Action individuelle sur une ligne (clic direct sur chip, pas via sélection)
+function masseSingleCk(row, id, field){
+  // Cascade
+  if(field==='mes'&&!row.mes){ row.livre=true; row.installe=true; }
+  else if(field==='installe'&&!row.installe){ row.livre=true; }
+  row[field] = !row[field];
+  if(isAutoVu(row)) row.vu=true;
+  syncRow(row); saveLocal(); renderLocalList(); updateVuBar();
+  refreshMasseRow(row, id);
+  var lbl={livre:'Livré',installe:'Installé',mes:'Mis en service'};
+  snack(row[field]?'✓ '+lbl[field]:lbl[field]+' retiré');
+}
+
+function masseSingleVu(row, id){
+  if(isAutoVu(row)){snack('✅ Vu automatique — 3 cases cochées');return;}
+  row.vu = !row.vu;
+  saveLocal(); updateVuBar(); renderLocalList();
+  refreshMasseRow(row, id);
+  snack(row.vu?'👁 Vu ce jour':'👁 Marquage retiré');
+}
+
+function refreshMasseRow(row, id){
+  var ckL = document.getElementById('mck_l_'+id);
+  var ckI = document.getElementById('mck_i_'+id);
+  var ckM = document.getElementById('mck_m_'+id);
+  var ckV = document.getElementById('mck_v_'+id);
+  var tdRem = document.getElementById('mrem_'+id);
+  var vu = computeVu(row);
+  if(ckL){ ckL.className='masse-ck'+(row.livre?' on-l':''); ckL.innerHTML=(row.livre?'✅':'📦')+'<span style="font-size:10px">'+(row.livre?'Oui':'Non')+'</span>'; }
+  if(ckI){ ckI.className='masse-ck'+(row.installe?' on-i':''); ckI.innerHTML=(row.installe?'✅':'🔧')+'<span style="font-size:10px">'+(row.installe?'Oui':'Non')+'</span>'; }
+  if(ckM){ ckM.className='masse-ck'+(row.mes?' on-m':''); ckM.innerHTML=(row.mes?'✅':'⚡')+'<span style="font-size:10px">'+(row.mes?'Oui':'Non')+'</span>'; }
+  if(ckV){ ckV.className='masse-vu'+(vu?' on-v':''); ckV.textContent=vu?'✓':'—'; }
+  if(tdRem){
+    tdRem.className='td-rem'+(row.remarque?' has-rem':'');
+    tdRem.textContent=row.remarque?row.remarque.split('\n').filter(Boolean).join(' · '):'Ajouter…';
+    tdRem.title=row.remarque||'Cliquer pour ajouter une remarque';
+  }
+  // Sync onglet pointage si visible
+  var cardId = 'mc_'+(row._row<0?'n':'')+Math.abs(row._row);
+  refreshRemZone(cardId, row);
+  var box=document.getElementById('vubox_'+cardId);
+  if(box){ box.classList.toggle('on',vu); box.textContent=vu?'✓':''; }
+}
+
+// ─── Actions groupées ──────────────────────────────────────────────────────
+function masseApply(field){
+  if(!masseSelected.size){ snack('Sélectionnez au moins un matériel'); return; }
+  var filtered = getMasseFiltered();
+  var targets = filtered.filter(function(r){ return masseSelected.has(r._row); });
+  targets.forEach(function(row){
+    var id = getMasseRowId(row);
+    if(field==='vu'){
+      if(!isAutoVu(row)){ row.vu=true; }
+    } else {
+      // Option A : forcer l'état à true
+      if(field==='mes'){ row.livre=true; row.installe=true; row.mes=true; }
+      else if(field==='installe'){ row.livre=true; row.installe=true; }
+      else { row[field]=true; }
+      if(isAutoVu(row)) row.vu=true;
+    }
+    syncRow(row);
+    refreshMasseRow(row, id);
+    // Flash visuel
+    var tr = document.getElementById(id);
+    if(tr){ tr.classList.add('masse-flash'); setTimeout(function(){ tr.classList.remove('masse-flash'); },700); }
+  });
+  saveLocal(); renderLocalList(); updateVuBar();
+  var lbl={livre:'Livré',installe:'Installé',mes:'En service',vu:'Vu ce jour'};
+  snack('✅ '+lbl[field]+' appliqué à '+targets.length+' matériel'+(targets.length>1?'s':''), '#1e8a4a');
+}
+
+function masseOpenRem(){
+  if(!masseSelected.size){ snack('Sélectionnez au moins un matériel'); return; }
+  document.getElementById('masseRemText').value='';
+  document.getElementById('masseRemPopup').classList.add('open');
+  setTimeout(function(){ document.getElementById('masseRemText').focus(); },80);
+}
+function masseCloseRem(){
+  document.getElementById('masseRemPopup').classList.remove('open');
+}
+function masseValiderRem(){
+  var txt = document.getElementById('masseRemText').value.trim();
+  if(!txt){ snack('Saisissez une remarque'); return; }
+  var ligne = fmtDate()+' '+txt;
+  var filtered = getMasseFiltered();
+  var targets = filtered.filter(function(r){ return masseSelected.has(r._row); });
+  targets.forEach(function(row){
+    var id = getMasseRowId(row);
+    row.remarque = ligne; // Écrasement (option validée)
+    syncRow(row);
+    refreshMasseRow(row, id);
+    var tr = document.getElementById(id);
+    if(tr){ tr.classList.add('masse-flash'); setTimeout(function(){ tr.classList.remove('masse-flash'); },700); }
+  });
+  saveLocal(); renderLocalList(); updateVuBar();
+  masseCloseRem();
+  snack('💬 Remarque appliquée à '+targets.length+' matériel'+(targets.length>1?'s':''), '#d4820a');
+}
+document.addEventListener('click',function(e){
+  var p=document.getElementById('masseRemPopup');
+  if(p&&p.classList.contains('open')&&e.target===p) masseCloseRem();
+});
+
+function populateMasseLotFilter(){
+  var sel = document.getElementById('masseLotFilter'); if(!sel) return;
+  var cur = sel.value;
+  sel.innerHTML='<option value="">Tous les lots</option>';
+  lots.forEach(function(l){ var o=document.createElement('option'); o.value=l; o.textContent=l; if(l===cur) o.selected=true; sel.appendChild(o); });
 }
 
 // ─── INIT ─────────────────────────────────────────────────────────────────────
